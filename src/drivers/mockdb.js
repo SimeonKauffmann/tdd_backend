@@ -1,4 +1,5 @@
-const { v4: uuid } = require('uuid');
+const { v4: uuid } = require("uuid")
+
 const usersData = [
   { login: "secret", name: "Patrik" },
   { login: "password", name: "Samuel" },
@@ -6,6 +7,7 @@ const usersData = [
 ]
 
 const productsData = [
+  { id: 123, name: "Bow", price: 10 },
   { id: "66ed22217e81", name: "Köttbullar", price: 10 },
   { id: "66ed22217e82", name: "Potatis", price: 3 },
   { id: "66ed22217e83", name: "Gurka", price: 5 },
@@ -109,4 +111,4 @@ const mockdbDriver = () => {
   return createMockDb()
 }
 
-module.exports = mockdbDriver
+module.exports = { mockdbDriver, productsData, createMockDb }

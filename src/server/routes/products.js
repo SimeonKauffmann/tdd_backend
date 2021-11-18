@@ -1,5 +1,7 @@
+
 const express = require('express');
-const { getDB } = require('../../drivers/mockdb.js');
+const getDB = require('../../drivers/mockdb.js');
+
 
 const router = express.Router();
 

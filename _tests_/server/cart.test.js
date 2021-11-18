@@ -9,9 +9,7 @@ describe("GET /carts", () => {
     request(app)
       .get("/carts/secret")
       .expect(200)
-      .expect((res) => {
-        res.body[0].productId === "66ed22217e81"
-      })
+      .expect((res) => res.body.cart[0].productId === "66ed22217e81")
       .end((err, res) => {
         if (err) return done(err)
         return done()
@@ -40,7 +38,7 @@ describe("POST /carts", () => {
 // /api/carts/:userLogin/:itemId
 
 describe("PUT product in cart", () => {
-  it("puts product in cart /carts/:userLogin/productId ", (done) => {
+  it("puts a product in cart /carts/:userLogin/productId ", (done) => {
     request(app)
       .put("/carts/secret/66ed22217e82")
       .expect(200)
@@ -65,7 +63,7 @@ describe("DELETE product in cart", () => {
       .expect(
         (res) =>
           res.body.cart.find(
-            (product) => product.productId === "66ed22217e82"
+            (product) => product.productId === "66ed22217e83"
           ) === undefined
       )
       .end((err, res) => {

@@ -1,6 +1,6 @@
 const { v4: uuid } = require('uuid');
 
-const productsData = [
+let productsData = [
   { id: 123, name: 'Bow', price: 10 },
   { id: uuid(), name: 'Köttbullar', price: 40 },
   { id: uuid(), name: 'Lax', price: 50 },
@@ -22,17 +22,20 @@ class MockCRUD {
 
   async createOne(data) {
     try {
-      return this.data.push({ data });
+      return this.data.push(data);
     } catch (err) {
       throw err;
     }
   }
 
   async deleteOne(input) {
-    this.data = this.data.filter((item) => {
-      return item.input !== input.name;
-    });
-    return (this.deleted += 1);
+    try {
+      this.data = this.data.filter((item) => {
+        return item.name !== input.name;
+      });
+    } catch (err) {
+      throw err;
+    }
   }
 }
 

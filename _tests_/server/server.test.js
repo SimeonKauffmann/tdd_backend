@@ -6,6 +6,7 @@ describe("server", () => {
     request(app)
       .get("/")
       .expect(200)
+      .expect((res) => res.body === "oh hi!")
       .end((err, res) => {
         if (err) return done(err)
         return done()

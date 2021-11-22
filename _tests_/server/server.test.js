@@ -1,4 +1,4 @@
-const expressDriver = require("../../src/server/server").expressDriver
+const expressDriver = require("../../src/server/server")
 const request = require("supertest")
 const app = expressDriver()
 

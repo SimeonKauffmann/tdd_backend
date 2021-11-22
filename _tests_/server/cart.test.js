@@ -1,4 +1,4 @@
-const expressDriver = require("../../src/server/server").expressDriver
+const expressDriver = require("../../src/server/server")
 const request = require("supertest")
 const app = expressDriver()
 
@@ -30,9 +30,9 @@ describe("GET /carts", () => {
   })
   // /api/carts/unknown-user
 
-  it("throws error (400) /carts/unkown-user ", (done) => {
+  it("throws error (401) /carts/unknown-user ", (done) => {
     request(app)
-      .get("/carts/unkown-user")
+      .get("/carts/unknown-user")
       .expect(401)
       .end((err, res) => {
         if (err) return done(err)
@@ -80,7 +80,7 @@ describe("PUT product in cart", () => {
 // /api/carts/:userLogin/:itemId
 
 describe("DELETE product in cart", () => {
-  it("deletes product in cart /carts/:userLogin/productId ", (done) => {
+  it("deletes product in cart /carts/:userLogin/:productId ", (done) => {
     request(app)
       .delete("/carts/secret/66ed22217e83")
       .expect(200)

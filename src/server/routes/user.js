@@ -50,7 +50,7 @@ router.delete('/:login', async (req, res) => {
   const db = await getDB();
 
   try {
-    const deleUser= await db.users.deleteOne({login: objectId(login) });
+    const deleUser= await db.users.deleteOne({login: login })
     res.status(201).send(deleUser)
   } catch (err) {
     res.status(501).send(err);

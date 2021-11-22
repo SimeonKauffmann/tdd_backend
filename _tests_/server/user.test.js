@@ -8,6 +8,7 @@ describe("User Test", () => {
     request(app)
     .get('/users')
     .expect(200)
+    .expect((res) => res.body.lenght === 3)
     .end((err, res) => {
       if (err) return done(err)
         return done()
@@ -54,7 +55,7 @@ describe("User Test", () => {
     request(app)
     .delete(`/users/${loginID}`)
     .expect(200)
-    .expect((res) => res.body.find(user => user.login =! "Kevin69"))
+    .expect((res) => res.body.find(user => user.login !== "Kevin69"))
     .end((err, res) => {
       if (err) return done(err);
       return done()

@@ -77,10 +77,14 @@ class MockCRUD {
   }
 
   async deleteOne(input) {
-    console.log('Before: ' + this.data)
+    if (input.login) {
+      this.data = this.data.filter((item) => {
+        return item.login !== input.login
+      })
+    } else {
     this.data = this.data.filter((item) => {
       return item.name !== input
-    })
+    })}
     console.log('After: ' + this.data)
     return (this.deleted += 1)
     

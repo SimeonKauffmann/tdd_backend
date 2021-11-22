@@ -1,5 +1,6 @@
-const app = require("../../src/server/server")
+const expressDriver = require("../../src/server/server").expressDriver
 const request = require("supertest")
+const app = expressDriver()
 
 describe("server", () => {
   it("gets / ", (done) => {

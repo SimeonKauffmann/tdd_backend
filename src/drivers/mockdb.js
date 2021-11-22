@@ -78,7 +78,7 @@ class MockCRUD {
 
   async deleteOne(input) {
     this.data = this.data.filter((item) => item.id !== input.id)
-    console.log(this.data)
+
     return 1
   }
 

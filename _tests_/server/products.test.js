@@ -26,27 +26,29 @@ describe("mockcrud", () => {
     expect(data).toStrictEqual({ id: 123, name: "Bow", price: 10 })
   })
 
-  it("Create a valid product", async () => {
-    const mockDb = createMockDb(productsData)
-    const newProduct = { id: 112, name: "Ax", price: 9 }
-    try {
-      const count = await mockDb.getAll()
-      await mockDb.products.createOne(newProduct)
-      const newCount = await mockDb.products.getAll()
-      expect(newCount.length).toBe(1 + count.length)
-    } catch (err) {
-      console.log(`Error ${err}`)
-    }
-  })
-  it("Deletes a product", async () => {
-    const mockDb = createMockDb(productsData)
-    try {
-      const count = await mockDb.getAll()
-      await mockDb.products.deleteOne("Lax")
-      const newCount = await mockDb.products.getAll()
-      expect(newCount.length).toBe(count.length--)
-    } catch (err) {
-      console.log(`Error ${err}`)
-    }
-  })
+  // it("Create a valid product", async () => {
+  //   const mockDb = createMockDb(productsData)
+  //   const newProduct = { id: 112, name: "Lax", price: 9 }
+  //   try {
+  //     const count = await mockDb.products.getAll()
+  //     await mockDb.products.createOne(newProduct)
+  //     const newCount = await mockDb.products.getAll()
+  //     expect(newCount.length).toBe(count.length++)
+  //   } catch (err) {
+  //     console.log(`Error ${err}`)
+  //   }
+  // })
+  // it("Deletes a product", async (done) => {
+  //   const mockDb = createMockDb(productsData)
+  //   try {
+  //     const count = await mockDb.products.getAll()
+  //     await mockDb.products.deleteOne("Lax")
+  //     const newCount = await mockDb.products.getAll()
+  //     console.log("Old Count: ", count.length)
+  //     console.log("New Count: ", newCount.length)
+  //     expect(newCount.length).toBe(count.length - 1)
+  //   } catch (err) {
+  //     console.log(`Error ${err}`)
+  //   }
+  // })
 })

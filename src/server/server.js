@@ -1,10 +1,11 @@
 const cartRouter = require("./routes/cart.js")
-const userRouter = require("./routes/user.js")
+const usersRouter = require("./routes/user.js")
 const productsRouter = require("./routes/products.js")
 const mockdbDriver = require("../drivers/mockdb").mockdbDriver
 const express = require("express")
 
 let getDB
+
 
 const expressDriver = (db) => {
   getDB = db
@@ -14,6 +15,7 @@ const expressDriver = (db) => {
 
   app.use("/products", productsRouter)
   app.use("/carts", cartRouter)
+  app.use("/users", usersRouter)
 
   app.get("/", (req, res) => {
     res.send("oh hi!")

@@ -1,7 +1,7 @@
 const { v4: uuid } = require("uuid")
 
 const usersData = [
-  { login: "secret", name: "Patrik" },
+  { login: "Patrik261", name: "Patrik" },
   { login: "password", name: "Samuel" },
   { login: "tyst", name: "Simeon" },
 ]
@@ -77,9 +77,16 @@ class MockCRUD {
   }
 
   async deleteOne(input) {
-    this.data = this.data.filter((item) => item.id !== input.id)
-
+    if (input.login) {
+      this.data = this.data.filter((item) => {
+        return item.login !== input.login
+      })
+    } else {
+    this.data = this.data.filter((item) => {
+      return item.id !== input.id
+    })}
     return 1
+
   }
 
   async deleteOrder(input) {

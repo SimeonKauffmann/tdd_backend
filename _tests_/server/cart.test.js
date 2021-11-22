@@ -1,11 +1,12 @@
-const app = require("../../src/server/server")
+const expressDriver = require("../../src/server/server").expressDriver
 const request = require("supertest")
+const app = expressDriver()
 
 // GET
 // /api/carts/:userLogin
 
 describe("GET /carts", () => {
-  it("gets /carts/:userLogin ", (done) => {
+  it("gets /carts/secret ", (done) => {
     request(app)
       .get("/carts/secret")
       .expect(200)
@@ -15,10 +16,33 @@ describe("GET /carts", () => {
         return done()
       })
   })
+
+  // /api/carts/-emptystring-
+
+  it("throws error (400) /carts/ ", (done) => {
+    request(app)
+      .get("/carts/")
+      .expect(400)
+      .end((err, res) => {
+        if (err) return done(err)
+        return done()
+      })
+  })
+  // /api/carts/unknown-user
+
+  it("throws error (400) /carts/unkown-user ", (done) => {
+    request(app)
+      .get("/carts/unkown-user")
+      .expect(401)
+      .end((err, res) => {
+        if (err) return done(err)
+        return done()
+      })
+  })
 })
 
 // POST
-// /api/carts/:userLogin/
+// /api/carts/:userLogin
 
 describe("POST /carts", () => {
   it("posts /carts/:userLogin ", (done) => {

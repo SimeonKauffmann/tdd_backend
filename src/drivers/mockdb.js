@@ -7,7 +7,7 @@ const usersData = [
 ]
 
 const productsData = [
-  { id: 123, name: "Bow", price: 10 },
+  { id: "123", name: "Bow", price: 10 },
   { id: "66ed22217e81", name: "Köttbullar", price: 10 },
   { id: "66ed22217e82", name: "Potatis", price: 3 },
   { id: "66ed22217e83", name: "Gurka", price: 5 },
@@ -42,7 +42,7 @@ class MockCRUD {
   async getOne(input) {
     if (input.userLogin)
       return this.data.find((item) => item.userLogin === input.userLogin)
-    return this.data.find((item) => item.name === input)
+    return this.data.find((item) => item.id === input.id)
   }
 
   async createOne(data) {
@@ -83,11 +83,10 @@ class MockCRUD {
       })
     } else {
     this.data = this.data.filter((item) => {
-      return item.name !== input
+      return item.id !== input.id
     })}
-    console.log('After: ' + this.data)
-    return (this.deleted += 1)
-    
+    return 1
+
   }
 
   async deleteOrder(input) {
@@ -118,4 +117,10 @@ const mockdbDriver = () => {
   return createMockDb()
 }
 
-module.exports = { mockdbDriver, productsData, createMockDb }
+const db = mockdbDriver()
+
+function getDB() {
+  return db
+}
+
+module.exports = { mockdbDriver, productsData, createMockDb, getDB }

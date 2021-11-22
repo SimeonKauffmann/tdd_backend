@@ -1,20 +1,26 @@
 const cartRouter = require("./routes/cart.js")
 const usersRouter = require("./routes/user.js")
 const productsRouter = require("./routes/products.js")
-const mockdbDriver = require("../drivers/mockdb")
+const mockdbDriver = require("../drivers/mockdb").mockdbDriver
 const express = require("express")
 
-// const db = mockdbDriver();
-const app = express()
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
+let getDB
 
-app.use("/products", productsRouter)
-app.use("/carts", cartRouter)
-app.use("/users", usersRouter)
 
-app.get("/", (req, res) => {
-  res.send()
-})
+const expressDriver = (db) => {
+  getDB = db
+  const app = express()
+  app.use(express.urlencoded({ extended: true }))
+  app.use(express.json())
 
-module.exports = app
+  app.use("/products", productsRouter)
+  app.use("/carts", cartRouter)
+  app.use("/users", usersRouter)
+
+  app.get("/", (req, res) => {
+    res.send("oh hi!")
+  })
+  return app
+}
+
+module.exports = { expressDriver, getDB }

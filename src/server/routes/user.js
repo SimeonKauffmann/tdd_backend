@@ -2,7 +2,7 @@ const express = require("express");
 const getDB   = require('../../drivers/mockdb.js').mockdbDriver
 const router  = express.Router();
 
-
+// GET ALL
 router.get('/', async (req, res) => {
   const db = await getDB();
   try {
@@ -15,6 +15,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+// GET ONE SPECIFIE
 router.get("/:login", async (req, res) => {
 
   const login = req.params.login;
@@ -28,6 +29,7 @@ router.get("/:login", async (req, res) => {
   }
 });
 
+// POST
 router.post("/", async (req, res) => {
 
   const {login, name} = req.body;
@@ -41,6 +43,7 @@ router.post("/", async (req, res) => {
   }
 });
 
+// DELETE
 router.delete('/:login', async (req, res) => {
 
   const login = req.params.login;
@@ -52,6 +55,6 @@ router.delete('/:login', async (req, res) => {
   } catch (err) {
     res.status(501).send(err);
   }
-})
+});
 
 module.exports = router

@@ -3,6 +3,7 @@ const request = require("supertest")
 
 describe("User Test", () => {
 
+  // Check GET/getAll
   it('Get all /users', (done) => {
     request(app)
     .get('/users')
@@ -13,6 +14,7 @@ describe("User Test", () => {
     })
   })
 
+  // Check GET/getOne
   it('Get /users by specified login', (done) => {
 
     const loginID = "Patrik261"
@@ -27,7 +29,10 @@ describe("User Test", () => {
       })
   });
 
+
+  // Check POST/createOne
   it('Create a new array in /users', (done) => {
+    
     const newUser = { login: "Kevin69", name: "Kevin Andersson"}
 
     request(app)
@@ -41,6 +46,7 @@ describe("User Test", () => {
     })
   });
 
+  // Check DELETE/deleteOne
   it('Delete created array in /users', (done) => {
 
     const loginID = "Kevin69"
@@ -54,9 +60,6 @@ describe("User Test", () => {
     })
   });
 
-  // it('Check deleted User', async () => {
-
-  // });
 
   // it('GET User by false ID', async () => {})
 

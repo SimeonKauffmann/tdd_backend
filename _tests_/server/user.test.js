@@ -32,7 +32,7 @@ describe("User Test", () => {
 
   // Check POST/createOne
   it('Create a new array in /users', (done) => {
-    
+
     const newUser = { login: "Kevin69", name: "Kevin Andersson"}
 
     request(app)
@@ -53,7 +53,8 @@ describe("User Test", () => {
 
     request(app)
     .delete(`/users/${loginID}`)
-    .expect(501)
+    .expect(200)
+    .expect((res) => res.body.find(user => user.login =! "Kevin69"))
     .end((err, res) => {
       if (err) return done(err);
       return done()

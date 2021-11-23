@@ -12,7 +12,6 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
   const newOrder = req.body;
-  //   const userLogin = req.params.userLogin;
   const db = await getDB();
   const orders = await db.products.createOneProduct(newOrder);
 

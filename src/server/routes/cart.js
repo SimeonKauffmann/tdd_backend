@@ -1,6 +1,7 @@
 const express = require("express")
 const router = express.Router()
-const getDB = require("../../drivers/mockdb").getDB
+
+const getDB = require("../../drivers/mockdb").mockdbDriver
 
 router.get("/:userLogin", async (req, res) => {
   const db = await getDB()

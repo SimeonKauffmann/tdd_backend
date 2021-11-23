@@ -14,7 +14,6 @@ describe('mockcrud', () => {
     expect(data[2]).toHaveProperty('name');
   });
 
-
   it('should return a specific product', async () => {
     const mockDb = createMockDb(productsData);
     const data = await mockDb.products.getAll();
@@ -37,7 +36,6 @@ describe('mockcrud', () => {
       console.log(`Error ${err}`);
     }
   });
-
 
   it('Deletes a product', async () => {
     const mockDb = createMockDb(productsData);

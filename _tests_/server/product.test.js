@@ -2,8 +2,6 @@ const app = require('../../src/server/server');
 const request = require('supertest');
 
 // GET
-// /api/carts/:userLogin
-
 describe('GET /product', () => {
   it('gets /products/:id ', (done) => {
     request(app)
@@ -18,7 +16,6 @@ describe('GET /product', () => {
 });
 
 // POST
-// /api/carts/:userLogin/
 
 describe('POST /products', () => {
   it('posts /products ', (done) => {
@@ -35,7 +32,6 @@ describe('POST /products', () => {
 });
 
 // // PUT
-// // /api/carts/:userLogin/:itemId
 
 describe('Update one product', () => {
   it('Updates one product in /products ', (done) => {
@@ -49,24 +45,3 @@ describe('Update one product', () => {
       });
   });
 });
-
-// // DELETE
-// // /api/carts/:userLogin/:itemId
-
-// describe('DELETE product in cart', () => {
-//   it('deletes product in cart /carts/:userLogin/productId ', (done) => {
-//     request(app)
-//       .delete('/carts/secret/66ed22217e83')
-//       .expect(200)
-//       .expect(
-//         (res) =>
-//           res.body.cart.find(
-//             (product) => product.productId === '66ed22217e83'
-//           ) === undefined
-//       )
-//       .end((err, res) => {
-//         if (err) return done(err);
-//         return done();
-//       });
-//   });
-// });

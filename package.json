@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "testwatch": "jest --watchAll"
     "start": "node --trace-warnings app.js",
     "test": "jest"
   },

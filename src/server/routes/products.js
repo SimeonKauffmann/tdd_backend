@@ -3,6 +3,7 @@ const router = express.Router();
 
 const getDB = require('../../drivers/mockdb').mockdbDriver;
 
+// GET
 router.get('/:id', async (req, res) => {
   const db = await getDB();
   const productId = req.params.id;
@@ -10,6 +11,7 @@ router.get('/:id', async (req, res) => {
   res.send(order);
 });
 
+// POST
 router.post('/', async (req, res) => {
   const newOrder = req.body;
   const db = await getDB();
@@ -18,6 +20,7 @@ router.post('/', async (req, res) => {
   res.status(201).send(newOrder);
 });
 
+// PUT 
 router.put('/', async (req, res) => {
   const db = await getDB();
   const updatedProduct = req.body;

@@ -1,11 +1,12 @@
 {
-  "name": "System_Design_Backend",
+  "name": "system-design-backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
     "testwatch": "jest --watchAll"
+    "start": "node --trace-warnings app.js",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",

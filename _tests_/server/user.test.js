@@ -1,4 +1,3 @@
-
 const app = require("../../src/server/server")
 const request = require("supertest")
 
@@ -22,7 +21,9 @@ describe("Test User GET/POST/DELETE", () => {
     request(app)
       .get(`/users/${loginID}`)
       .expect(200)
-      .expect((res) => { res.body.userLogin = loginID })
+      .expect((res) => {
+        res.body.userLogin = loginID
+      })
       .end((err, res) => {
         if (err) return done(err)
         return done()
@@ -60,27 +61,26 @@ describe("Test User GET/POST/DELETE", () => {
   })
 })
 
-describe('Test User with Error', (done) => {
-
+describe("Test User with Error", (done) => {
   // Throw error with invaild userLogin
-  it('Send invaild Login for Error', (done) => {
+  it("Send invaild Login for Error", (done) => {
     request(app)
-    .get(`/users/UnknownTest`) 
-    .expect(403)
-    .expect(( res => res.body === "Invaild User"))
-    .end((err, res) => {
-      if (err) return done(err)
-      return done()
-    })
+      .get(`/users/UnknownTest`)
+      .expect(403)
+      .expect((res) => res.body === "Invaild User")
+      .end((err, res) => {
+        if (err) return done(err)
+        return done()
+      })
 
-  // it('Send Empty array for ', (done) => {
+    // it('Send Empty array for ', (done) => {
 
-  // })
-  // POST
-  // Empty array? One or Both missing.
-  // Can't Create loginId if existing
-  
-  // DELETE
-  // Wrong LoginID
+    // })
+    // POST
+    // Empty array? One or Both missing.
+    // Can't Create loginId if existing
 
+    // DELETE
+    // Wrong LoginID
   })
+})

@@ -1,66 +1,29 @@
 const express = require("express")
-const getDB = require("../../drivers/mockdb").getDB
-
 const router = express.Router()
 
+const getDB = require("../../drivers/mockdb").getDB
+
 router.get("/:id", async (req, res) => {
-  const id = req.params.id
   const db = await getDB()
-
-  try {
-    const product = await db.products.getOne({ id })
-    res.send(product)
-  } catch (err) {
-    console.error("ERROR: ", err)
-    res.status(501).send(err)
-  }
-})
-
-router.get("/", async (req, res) => {
-  const db = await getDB()
-  try {
-    const products = await db.products.getAll()
-    res.send(products)
-  } catch (err) {
-    console.error("Error GET /products", err)
-    res.status(501).send(err)
-  }
-})
-
-router.delete("/:id", async (req, res) => {
-  const id = req.params.id
-  const db = await getDB()
-  try {
-    const response = await db.products.deleteOne({ id })
-    console.log("deleted one")
-    res.send(`deleted ${response}`)
-  } catch (err) {
-    console.error(err)
-    res.status(501).send(err)
-  }
+  const productId = req.params.id
+  const order = await db.products.getOne({ productId })
+  res.send(order)
 })
 
 router.post("/", async (req, res) => {
-  const { name, cost, amount } = req.body
+  const newOrder = req.body
+  //   const userLogin = req.params.userLogin;s
   const db = await getDB()
+  const orders = await db.products.createOneProduct(newOrder)
 
-  try {
-    const response = await db.products.createOne({ name, cost, amount })
-    console.log(`succeful insert of Product`)
-    res.status(201).send(`succeful insert of Product`)
-  } catch (err) {
-    console.error(err)
-    res.status(501).send(err)
-  }
+  res.status(201).send(newOrder)
+})
+
+router.put("/", async (req, res) => {
+  const db = await getDB()
+  const updatedProduct = req.body
+  await db.products.modifyProduct({ updatedProduct })
+  res.send(updatedProduct)
 })
 
 module.exports = router
-
-// const express = require("express")
-// const router = express.router()
-
-// router.get("/", (req, res) => {
-//   res.send()
-// })
-
-// module.exports = router

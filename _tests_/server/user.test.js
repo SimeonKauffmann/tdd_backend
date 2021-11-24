@@ -1,6 +1,6 @@
-const expressDriver = require("../../src/server/server")
+
+const app = require("../../src/server/server")
 const request = require("supertest")
-const app = expressDriver()
 
 describe("Test User GET/POST/DELETE", () => {
   // Check GET/getAll
@@ -84,4 +84,3 @@ describe('Test User with Error', (done) => {
   // Wrong LoginID
 
   })
-})

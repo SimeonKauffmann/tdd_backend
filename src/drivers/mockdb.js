@@ -7,7 +7,7 @@ const usersData = [
 ]
 
 const productsData = [
-  { id: "123", name: "Bow", price: 10 },
+  { id: 123, name: "Bow", price: 10 },
   { id: "66ed22217e81", name: "Köttbullar", price: 10 },
   { id: "66ed22217e82", name: "Potatis", price: 3 },
   { id: "66ed22217e83", name: "Gurka", price: 5 },
@@ -43,8 +43,7 @@ class MockCRUD {
     if (input.userLogin){
       return this.data.find((item) => item.userLogin === input.userLogin)
     }
-    return this.data.find((item) => item.id === input.id)
-  }
+    return this.data.find((item) => item.id === input)
 
   async createOne(data) {
     try {
@@ -54,7 +53,20 @@ class MockCRUD {
       throw err
     }
   }
-
+  // PRODUCTS OBJECT CHECK
+  async createOneProduct(data) {
+    var objKeys = Object.keys(data)
+    if (objKeys[0] == "id" && objKeys[1] == "name" && objKeys[2] == "price") {
+      try {
+        this.data.push(data)
+        return this.data
+      } catch (err) {
+        throw err
+      }
+    } else {
+      console.log("invalid object")
+    }
+  }
   async modifyOrder(input) {
     try {
       this.data.forEach((cart) => {
@@ -83,6 +95,20 @@ class MockCRUD {
     }
     return this.data = this.data.filter((item) => item.id !== input.id)
   }
+    
+  async modifyProduct(input) {
+    try {
+      this.data.forEach((product) => {
+        if (product.id === input.id) {
+          product === input
+          return this.data
+        }
+      })
+    } catch (err) {
+      throw err
+    }
+  }
+
 
   async deleteOrder(input) {
     try {
@@ -114,8 +140,6 @@ const mockdbDriver = () => {
 
 const db = mockdbDriver()
 
-function getDB() {
-  return db
-}
+const getDB = () => db
 
 module.exports = { mockdbDriver, productsData, createMockDb, getDB }

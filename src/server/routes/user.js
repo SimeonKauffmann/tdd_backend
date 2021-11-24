@@ -1,6 +1,7 @@
-const express = require("express")
-const getDB = require("../../drivers/mockdb.js").mockdbDriver
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
+const getDB = require("../../drivers/mockdb").getDB
+
 
 // GET ALL
 router.get("/", async (req, res) => {
@@ -13,7 +14,6 @@ router.get("/", async (req, res) => {
     res.status(501).send(err)
   }
 })
-
 // GET ONE SPECIFIE
 router.get("/:login", async (req, res) => {
 
@@ -59,3 +59,4 @@ router.delete("/:login", async (req, res) => {
 })
 
 module.exports = router
+

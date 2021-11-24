@@ -1,9 +1,9 @@
 const { v4: uuid } = require("uuid")
 
 const usersData = [
-  { login: "secret", name: "Patrik" },
-  { login: "password", name: "Samuel" },
-  { login: "tyst", name: "Simeon" },
+  { userLogin: "Patrik261", name: "Patrik" },
+  { userLogin: "password", name: "Samuel" },
+  { userLogin: "tyst", name: "Simeon" },
 ]
 
 const productsData = [
@@ -40,10 +40,10 @@ class MockCRUD {
   }
 
   async getOne(input) {
-    if (input.userLogin)
+    if (input.userLogin){
       return this.data.find((item) => item.userLogin === input.userLogin)
-    return this.data.find((item) => item.name === input)
-  }
+    }
+    return this.data.find((item) => item.id === input)
 
   async createOne(data) {
     try {
@@ -89,6 +89,13 @@ class MockCRUD {
     }
   }
 
+  async deleteOne(input) {
+    if (input.userLogin){
+      return this.data = this.data.filter((item) => item.userLogin === input.userLogin)
+    }
+    return this.data = this.data.filter((item) => item.id !== input.id)
+  }
+    
   async modifyProduct(input) {
     try {
       this.data.forEach((product) => {
@@ -102,12 +109,6 @@ class MockCRUD {
     }
   }
 
-  async deleteOne(input) {
-    this.data = this.data.filter((item) => {
-      return item.name !== input
-    })
-    return (this.deleted += 1)
-  }
 
   async deleteOrder(input) {
     try {

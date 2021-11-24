@@ -1,16 +1,16 @@
 const { v4: uuid } = require('uuid');
 
 const usersData = [
-  { login: 'secret', name: 'Patrik' },
-  { login: 'password', name: 'Samuel' },
-  { login: 'tyst', name: 'Simeon' }
+  { userLogin: 'Patrik261', name: 'Patrik' },
+  { userLogin: 'password', name: 'Samuel' },
+  { userLogin: 'tyst', name: 'Simeon' }
 ];
 
 const productsData = [
   { id: '123', name: 'Bow', price: 10 },
   { id: '66ed22217e81', name: 'Köttbullar', price: 10 },
   { id: '66ed22217e82', name: 'Potatis', price: 3 },
-  { id: '66ed22217e83', name: 'Gurka', price: 5 }
+  { id: uuid(), name: 'Gurka', price: 5 }
 ];
 
 const cartsData = [
@@ -45,7 +45,6 @@ class MockCRUD {
     }
     return this.data.find((item) => item.id === input);
   }
-
   async createOne(data) {
     try {
       this.data.push(data);
@@ -54,15 +53,10 @@ class MockCRUD {
       throw err;
     }
   }
-
   // PRODUCTS OBJECT CHECK
   async createOneProduct(data) {
     var objKeys = Object.keys(data);
-    if (
-      objKeys[0] === 'id' &&
-      objKeys[1] === 'name' &&
-      objKeys[2] === 'price'
-    ) {
+    if (objKeys[0] == 'id' && objKeys[1] == 'name' && objKeys[2] == 'price') {
       try {
         this.data.push(data);
         return this.data;
@@ -95,6 +89,15 @@ class MockCRUD {
     }
   }
 
+  async deleteOne(input) {
+    if (input.userLogin) {
+      return (this.data = this.data.filter(
+        (item) => item.userLogin === input.userLogin
+      ));
+    }
+    return (this.data = this.data.filter((item) => item.id !== input.id));
+  }
+
   async modifyProduct(input) {
     try {
       this.data.forEach((product) => {
@@ -106,13 +109,6 @@ class MockCRUD {
     } catch (err) {
       throw err;
     }
-  }
-
-  async deleteOne(input) {
-    this.data = this.data.filter((item) => {
-      return item.name !== input;
-    });
-    return (this.deleted += 1);
   }
 
   async deleteOrder(input) {

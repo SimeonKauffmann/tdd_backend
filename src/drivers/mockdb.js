@@ -1,9 +1,9 @@
 const { v4: uuid } = require("uuid")
 
 const usersData = [
-  { login: "secret", name: "Patrik" },
-  { login: "password", name: "Samuel" },
-  { login: "tyst", name: "Simeon" },
+  { userLogin: "Patrik261", name: "Patrik" },
+  { userLogin: "password", name: "Samuel" },
+  { userLogin: "tyst", name: "Simeon" },
 ]
 
 const productsData = [
@@ -40,8 +40,9 @@ class MockCRUD {
   }
 
   async getOne(input) {
-    if (input.userLogin)
+    if (input.userLogin){
       return this.data.find((item) => item.userLogin === input.userLogin)
+    }
     return this.data.find((item) => item.id === input.id)
   }
 

@@ -16,12 +16,18 @@ router.get("/", async (req, res) => {
 
 // GET ONE SPECIFIE
 router.get("/:login", async (req, res) => {
+
   const login = req.params.login
   const db = await getDB()
 
   try {
     const user = await db.users.getOne({ userLogin: login })
+    console.log(user)
+    if (!user) {
+      res.status(403).send("Invaild User!")
+    }
     res.send(user)
+
   } catch (err) {
     res.status(500).send(err)
   }
@@ -47,11 +53,10 @@ router.delete("/:login", async (req, res) => {
 
   try {
     const deleUser = await db.users.deleteOne({ login: login })
-    res.status(201).send(deleUser)
+    res.status(200).send(deleUser)
   } catch (err) {
     res.status(501).send(err)
   }
 })
 
-module.exports = router
 module.exports = router

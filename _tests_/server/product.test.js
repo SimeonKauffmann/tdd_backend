@@ -30,18 +30,18 @@ describe('POST /products', () => {
   });
 });
 
-describe('POST bad requests /products', () => {
-  it('posts empty object/products ', (done) => {
-    request(app)
-      .post('/products')
-      .send({ iam: 'error' })
-      .expect(401)
-      .end((err, res) => {
-        if (err) return done(err);
-        return done();
-      });
-  });
-});
+// describe('POST bad requests /products', () => {
+//   it('posts empty object/products ', (done) => {
+//     request(app)
+//       .post('/products')
+//       .send({ iam: 'error' })
+//       .expect(401)
+//       .end((err, res) => {
+//         if (err) return done(err);
+//         return done();
+//       });
+//   });
+// });
 
 // // PUT
 describe('Update one product', () => {

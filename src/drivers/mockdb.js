@@ -7,7 +7,7 @@ const usersData = [
 ];
 
 const productsData = [
-  { id: 123, name: 'Bow', price: 10 },
+  { id: '123', name: 'Bow', price: 10 },
   { id: '66ed22217e81', name: 'Köttbullar', price: 10 },
   { id: '66ed22217e82', name: 'Potatis', price: 3 },
   { id: '66ed22217e83', name: 'Gurka', price: 5 }
@@ -40,9 +40,10 @@ class MockCRUD {
   }
 
   async getOne(input) {
-    if (input.userLogin)
+    if (input.userLogin) {
       return this.data.find((item) => item.userLogin === input.userLogin);
-    return this.data.find((item) => item.name === input);
+    }
+    return this.data.find((item) => item.id === input);
   }
 
   async createOne(data) {
@@ -62,7 +63,6 @@ class MockCRUD {
       objKeys[1] === 'name' &&
       objKeys[2] === 'price'
     ) {
-      console.log('objKeys: ', objKeys, 'data: ', data);
       try {
         this.data.push(data);
         return this.data;
@@ -70,7 +70,7 @@ class MockCRUD {
         throw err;
       }
     } else {
-      throw err;
+      console.log('invalid object');
     }
   }
   async modifyOrder(input) {

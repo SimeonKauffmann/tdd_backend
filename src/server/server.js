@@ -9,6 +9,7 @@ app.use(express.json())
 
 app.use("/products", productsRouter)
 app.use("/carts", cartRouter)
+app.use("/users", userRouter)
 
 app.get("/", (req, res) => {
   res.send()

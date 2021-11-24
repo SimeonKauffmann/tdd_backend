@@ -1,70 +1,76 @@
-const { v4: uuid } = require("uuid")
+const { v4: uuid } = require('uuid');
 
 const usersData = [
-  { login: "secret", name: "Patrik" },
-  { login: "password", name: "Samuel" },
-  { login: "tyst", name: "Simeon" },
-]
+  { login: 'secret', name: 'Patrik' },
+  { login: 'password', name: 'Samuel' },
+  { login: 'tyst', name: 'Simeon' }
+];
 
 const productsData = [
-  { id: 123, name: "Bow", price: 10 },
-  { id: "66ed22217e81", name: "Köttbullar", price: 10 },
-  { id: "66ed22217e82", name: "Potatis", price: 3 },
-  { id: "66ed22217e83", name: "Gurka", price: 5 },
-]
+  { id: 123, name: 'Bow', price: 10 },
+  { id: '66ed22217e81', name: 'Köttbullar', price: 10 },
+  { id: '66ed22217e82', name: 'Potatis', price: 3 },
+  { id: '66ed22217e83', name: 'Gurka', price: 5 }
+];
 
 const cartsData = [
   {
-    userLogin: "secret",
+    userLogin: 'secret',
     cart: [
-      { productId: "66ed22217e81", amount: 2 },
-      { productId: "66ed22217e83", amount: 1 },
-    ],
+      { productId: '66ed22217e81', amount: 2 },
+      { productId: '66ed22217e83', amount: 1 }
+    ]
   },
   {
-    userLogin: "password",
+    userLogin: 'password',
     cart: [
-      { productId: "66ed22217e83", amount: 2 },
-      { productId: "66ed22217e82", amount: 13 },
-    ],
-  },
-]
+      { productId: '66ed22217e83', amount: 2 },
+      { productId: '66ed22217e82', amount: 13 }
+    ]
+  }
+];
 
 class MockCRUD {
   constructor(data) {
-    this.data = data
+    this.data = data;
   }
 
   async getAll() {
-    return this.data
+    return this.data;
   }
 
   async getOne(input) {
     if (input.userLogin)
-      return this.data.find((item) => item.userLogin === input.userLogin)
-    return this.data.find((item) => item.name === input)
+      return this.data.find((item) => item.userLogin === input.userLogin);
+    return this.data.find((item) => item.name === input);
   }
 
   async createOne(data) {
     try {
-      this.data.push(data)
-      return this.data
+      this.data.push(data);
+      return this.data;
     } catch (err) {
-      throw err
+      throw err;
     }
   }
+
   // PRODUCTS OBJECT CHECK
   async createOneProduct(data) {
-    var objKeys = Object.keys(data)
-    if (objKeys[0] == "id" && objKeys[1] == "name" && objKeys[2] == "price") {
+    var objKeys = Object.keys(data);
+    if (
+      objKeys[0] === 'id' &&
+      objKeys[1] === 'name' &&
+      objKeys[2] === 'price'
+    ) {
+      console.log('objKeys: ', objKeys, 'data: ', data);
       try {
-        this.data.push(data)
-        return this.data
+        this.data.push(data);
+        return this.data;
       } catch (err) {
-        throw err
+        throw err;
       }
     } else {
-      console.log("invalid object")
+      throw err;
     }
   }
   async modifyOrder(input) {
@@ -73,19 +79,19 @@ class MockCRUD {
         if (cart.userLogin === input.userLogin) {
           if (
             cart.cart.find((product) => {
-              product.productId === input.productId
+              product.productId === input.productId;
             })
           ) {
             cart.cart.indexOf(product.productId === input.productId).product
-              .amount++
+              .amount++;
           } else {
-            cart.cart.push({ productId: input.productId, amount: 1 })
+            cart.cart.push({ productId: input.productId, amount: 1 });
           }
         }
-      })
-      return this.data
+      });
+      return this.data;
     } catch (err) {
-      throw err
+      throw err;
     }
   }
 
@@ -93,20 +99,20 @@ class MockCRUD {
     try {
       this.data.forEach((product) => {
         if (product.id === input.id) {
-          product === input
-          return this.data
+          product === input;
+          return this.data;
         }
-      })
+      });
     } catch (err) {
-      throw err
+      throw err;
     }
   }
 
   async deleteOne(input) {
     this.data = this.data.filter((item) => {
-      return item.name !== input
-    })
-    return (this.deleted += 1)
+      return item.name !== input;
+    });
+    return (this.deleted += 1);
   }
 
   async deleteOrder(input) {
@@ -116,29 +122,29 @@ class MockCRUD {
           order.cart.splice(
             order.cart.indexOf(order.cart.productId === input.productId),
             1
-          )
+          );
         }
-      })
-      return this.data
+      });
+      return this.data;
     } catch (err) {
-      throw err
+      throw err;
     }
   }
 }
 
 const createMockDb = () => {
-  const products = new MockCRUD(productsData)
-  const users = new MockCRUD(usersData)
-  const carts = new MockCRUD(cartsData)
-  return { products, users, carts }
-}
+  const products = new MockCRUD(productsData);
+  const users = new MockCRUD(usersData);
+  const carts = new MockCRUD(cartsData);
+  return { products, users, carts };
+};
 
 const mockdbDriver = () => {
-  return createMockDb()
-}
+  return createMockDb();
+};
 
-const db = mockdbDriver()
+const db = mockdbDriver();
 
-const getDB = () => db
+const getDB = () => db;
 
-module.exports = { mockdbDriver, productsData, createMockDb, getDB }
+module.exports = { mockdbDriver, productsData, createMockDb, getDB };

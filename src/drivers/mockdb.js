@@ -78,9 +78,10 @@ class MockCRUD {
   }
 
   async deleteOne(input) {
-    this.data = this.data.filter((item) => item.id !== input.id)
-
-    return 1
+    if (input.userLogin){
+      return this.data = this.data.filter((item) => item.userLogin === input.userLogin)
+    }
+    return this.data = this.data.filter((item) => item.id !== input.id)
   }
 
   async deleteOrder(input) {

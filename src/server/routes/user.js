@@ -22,7 +22,6 @@ router.get("/:login", async (req, res) => {
 
   try {
     const user = await db.users.getOne({ userLogin: login })
-    console.log(user)
     if (!user) {
       res.status(403).send("Invaild User!")
     }
@@ -52,7 +51,7 @@ router.delete("/:login", async (req, res) => {
   const db = await getDB()
 
   try {
-    const deleUser = await db.users.deleteOne({ login: login })
+    const deleUser = await db.users.deleteOne({ userLogin: login })
     res.status(200).send(deleUser)
   } catch (err) {
     res.status(501).send(err)

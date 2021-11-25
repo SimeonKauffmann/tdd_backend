@@ -1,10 +1,12 @@
 const { v4: uuid } = require('uuid');
 
 const usersData = [
-  { userLogin: 'Patrik261', name: 'Patrik' },
-  { userLogin: 'password', name: 'Samuel' },
-  { userLogin: 'tyst', name: 'Simeon' }
-];
+  { userLogin: "Patrik261", name: "Patrik" },
+  { userLogin: "password", name: "Samuel" },
+  { userLogin: "tyst", name: "Simeon" },
+  { userLogin: "secret", name: "Lulin" },
+]
+
 
 const productsData = [
   { id: '123', name: 'Bow', price: 10 },
@@ -71,13 +73,13 @@ class MockCRUD {
     try {
       this.data.forEach((cart) => {
         if (cart.userLogin === input.userLogin) {
-          if (
-            cart.cart.find((product) => {
-              product.productId === input.productId;
-            })
-          ) {
-            cart.cart.indexOf(product.productId === input.productId).product
-              .amount++;
+          const index = cart.cart.findIndex(
+            (product) => product.productId === input.productId
+          )
+          console.log(index)
+          if (index !== -1) {
+            cart.cart[index].amount++
+
           } else {
             cart.cart.push({ productId: input.productId, amount: 1 });
           }
@@ -116,7 +118,7 @@ class MockCRUD {
       this.data.forEach((order) => {
         if (order.userLogin === input.userLogin) {
           order.cart.splice(
-            order.cart.indexOf(order.cart.productId === input.productId),
+            order.cart.findIndex((cart) => cart.productId === input.productId),
             1
           );
         }

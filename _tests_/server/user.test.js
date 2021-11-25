@@ -61,9 +61,9 @@ describe("Test User GET/POST/DELETE", () => {
   })
 })
 
-describe("Test User with Error", (done) => {
+describe("Test User with Error", () => {
   // Throw error with invaild userLogin
-  it("Send invaild Login for Error", (done) => {
+  it("Send invaild userLogin for GET request", (done) => {
     request(app)
       .get(`/users/UnknownTest`)
       .expect(403)
@@ -73,14 +73,24 @@ describe("Test User with Error", (done) => {
         return done()
       })
 
-    // it('Send Empty array for ', (done) => {
-
-    // })
     // POST
     // Empty array? One or Both missing.
     // Can't Create loginId if existing
 
-    // DELETE
-    // Wrong LoginID
+    it("should create", (done) => {
+      const emptyUser = { login: "", name: "" }
+      request(app)
+      .post("/users")
+      .send(emptyUser)
+      .expect(201)
+      .expect((res) => res.body === "Missing object")
+      .end((err, res) => {
+        if (err) return done(err)
+        return done()
+      })
+
+    })
+
+
   })
 })

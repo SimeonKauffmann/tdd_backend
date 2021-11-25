@@ -95,7 +95,7 @@ describe("PUT product in cart", () => {
 describe("DELETE product in cart", () => {
   it("deletes product in cart /carts/:userLogin/:productId ", (done) => {
     request(app)
-      .delete("/carts/secret/66ed22217e83")
+      .delete("/carts/secret/66ed22217e82")
       .expect(200)
       .expect(
         (res) =>

@@ -2,8 +2,6 @@ const app = require('../../src/server/server');
 const request = require('supertest');
 
 // GET
-// /api/carts/:userLogin
-
 describe('GET /product', () => {
   it('gets /products/:id ', (done) => {
     request(app)
@@ -18,8 +16,6 @@ describe('GET /product', () => {
 });
 
 // POST
-// /api/carts/:userLogin/
-
 describe('POST /products', () => {
   it('posts /products ', (done) => {
     request(app)
@@ -34,9 +30,20 @@ describe('POST /products', () => {
   });
 });
 
-// // PUT
-// // /api/carts/:userLogin/:itemId
+// describe('POST bad requests /products', () => {
+//   it('posts empty object/products ', (done) => {
+//     request(app)
+//       .post('/products')
+//       .send({ iam: 'error' })
+//       .expect(401)
+//       .end((err, res) => {
+//         if (err) return done(err);
+//         return done();
+//       });
+//   });
+// });
 
+// // PUT
 describe('Update one product', () => {
   it('Updates one product in /products ', (done) => {
     request(app)

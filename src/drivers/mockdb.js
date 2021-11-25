@@ -1,4 +1,4 @@
-const { v4: uuid } = require("uuid")
+const { v4: uuid } = require('uuid');
 
 const usersData = [
   { userLogin: "Patrik261", name: "Patrik" },
@@ -7,65 +7,66 @@ const usersData = [
   { userLogin: "secret", name: "Lulin" },
 ]
 
+
 const productsData = [
-  { id: "123", name: "Bow", price: 10 },
-  { id: "66ed22217e81", name: "Köttbullar", price: 10 },
-  { id: "66ed22217e82", name: "Potatis", price: 3 },
-  { id: "66ed22217e83", name: "Gurka", price: 5 },
-]
+  { id: '123', name: 'Bow', price: 10 },
+  { id: '66ed22217e81', name: 'Köttbullar', price: 10 },
+  { id: '66ed22217e82', name: 'Potatis', price: 3 },
+  { id: uuid(), name: 'Gurka', price: 5 }
+];
 
 const cartsData = [
   {
-    userLogin: "secret",
+    userLogin: 'secret',
     cart: [
-      { productId: "66ed22217e81", amount: 2 },
-      { productId: "66ed22217e83", amount: 1 },
-    ],
+      { productId: '66ed22217e81', amount: 2 },
+      { productId: '66ed22217e83', amount: 1 }
+    ]
   },
   {
-    userLogin: "password",
+    userLogin: 'password',
     cart: [
-      { productId: "66ed22217e83", amount: 2 },
-      { productId: "66ed22217e82", amount: 13 },
-    ],
-  },
-]
+      { productId: '66ed22217e83', amount: 2 },
+      { productId: '66ed22217e82', amount: 13 }
+    ]
+  }
+];
 
 class MockCRUD {
   constructor(data) {
-    this.data = data
+    this.data = data;
   }
 
   async getAll() {
-    return this.data
+    return this.data;
   }
 
   async getOne(input) {
     if (input.userLogin) {
-      return this.data.find((item) => item.userLogin === input.userLogin)
+      return this.data.find((item) => item.userLogin === input.userLogin);
     }
-    return this.data.find((item) => item.id === input)
+    return this.data.find((item) => item.id === input);
   }
   async createOne(data) {
     try {
-      this.data.push(data)
-      return this.data
+      this.data.push(data);
+      return this.data;
     } catch (err) {
-      throw err
+      throw err;
     }
   }
   // PRODUCTS OBJECT CHECK
   async createOneProduct(data) {
-    var objKeys = Object.keys(data)
-    if (objKeys[0] == "id" && objKeys[1] == "name" && objKeys[2] == "price") {
+    var objKeys = Object.keys(data);
+    if (objKeys[0] == 'id' && objKeys[1] == 'name' && objKeys[2] == 'price') {
       try {
-        this.data.push(data)
-        return this.data
+        this.data.push(data);
+        return this.data;
       } catch (err) {
-        throw err
+        throw err;
       }
     } else {
-      console.log("invalid object")
+      console.log('invalid object');
     }
   }
   async modifyOrder(input) {
@@ -78,14 +79,15 @@ class MockCRUD {
           console.log(index)
           if (index !== -1) {
             cart.cart[index].amount++
+
           } else {
-            cart.cart.push({ productId: input.productId, amount: 1 })
+            cart.cart.push({ productId: input.productId, amount: 1 });
           }
         }
-      })
-      return this.data
+      });
+      return this.data;
     } catch (err) {
-      throw err
+      throw err;
     }
   }
 
@@ -93,21 +95,21 @@ class MockCRUD {
     if (input.userLogin) {
       return (this.data = this.data.filter(
         (item) => item.userLogin === input.userLogin
-      ))
+      ));
     }
-    return (this.data = this.data.filter((item) => item.id !== input.id))
+    return (this.data = this.data.filter((item) => item.id !== input.id));
   }
 
   async modifyProduct(input) {
     try {
       this.data.forEach((product) => {
         if (product.id === input.id) {
-          product === input
-          return this.data
+          product === input;
+          return this.data;
         }
-      })
+      });
     } catch (err) {
-      throw err
+      throw err;
     }
   }
 
@@ -118,29 +120,29 @@ class MockCRUD {
           order.cart.splice(
             order.cart.findIndex((cart) => cart.productId === input.productId),
             1
-          )
+          );
         }
-      })
-      return this.data
+      });
+      return this.data;
     } catch (err) {
-      throw err
+      throw err;
     }
   }
 }
 
 const createMockDb = () => {
-  const products = new MockCRUD(productsData)
-  const users = new MockCRUD(usersData)
-  const carts = new MockCRUD(cartsData)
-  return { products, users, carts }
-}
+  const products = new MockCRUD(productsData);
+  const users = new MockCRUD(usersData);
+  const carts = new MockCRUD(cartsData);
+  return { products, users, carts };
+};
 
 const mockdbDriver = () => {
-  return createMockDb()
-}
+  return createMockDb();
+};
 
-const db = mockdbDriver()
+const db = mockdbDriver();
 
-const getDB = () => db
+const getDB = () => db;
 
-module.exports = { mockdbDriver, productsData, createMockDb, getDB }
+module.exports = { mockdbDriver, productsData, createMockDb, getDB };

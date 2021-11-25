@@ -1,7 +1,7 @@
-const express = require("express")
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 
-const getDB = require("../../drivers/mockdb").getDB
+const getDB = require('../../drivers/mockdb').getDB;
 
 router.get("/", async (req, res) => {
   const db = await getDB()
@@ -16,20 +16,17 @@ router.get("/:id", async (req, res) => {
   res.send(order)
 })
 
-router.post("/", async (req, res) => {
-  const newOrder = req.body
-  //   const userLogin = req.params.userLogin;s
-  const db = await getDB()
-  const orders = await db.products.createOneProduct(newOrder)
+router.post('/', async (req, res) => {
+  const db = await getDB();
+  await db.products.createOneProduct(req.body);
+  res.status(201).send(req.body);
+});
 
-  res.status(201).send(newOrder)
-})
+router.put('/', async (req, res) => {
+  const db = await getDB();
+  const updatedProduct = req.body;
+  await db.products.modifyProduct({ updatedProduct });
+  res.send(updatedProduct);
+});
 
-router.put("/", async (req, res) => {
-  const db = await getDB()
-  const updatedProduct = req.body
-  await db.products.modifyProduct({ updatedProduct })
-  res.send(updatedProduct)
-})
-
-module.exports = router
+module.exports = router;

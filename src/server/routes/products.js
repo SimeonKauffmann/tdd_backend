@@ -3,6 +3,12 @@ const router = express.Router()
 
 const getDB = require("../../drivers/mockdb").getDB
 
+router.get("/", async (req, res) => {
+  const db = await getDB()
+  const products = await db.products.getAll()
+  res.send(products)
+})
+
 router.get("/:id", async (req, res) => {
   const db = await getDB()
   const productId = req.params.id

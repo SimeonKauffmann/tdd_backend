@@ -55,16 +55,11 @@ class MockCRUD {
   }
   // PRODUCTS OBJECT CHECK
   async createOneProduct(data) {
-    var objKeys = Object.keys(data);
-    if (objKeys[0] == 'id' && objKeys[1] == 'name' && objKeys[2] == 'price') {
-      try {
-        this.data.push(data);
-        return this.data;
-      } catch (err) {
-        throw err;
-      }
-    } else {
-      console.log('invalid object');
+    try {
+      this.data.push(data);
+      return this.data;
+    } catch (err) {
+      throw err;
     }
   }
   async modifyOrder(input) {
@@ -143,4 +138,9 @@ const db = mockdbDriver();
 
 const getDB = () => db;
 
-module.exports = { mockdbDriver, productsData, createMockDb, getDB };
+module.exports = {
+  mockdbDriver,
+  productsData,
+  createMockDb,
+  getDB
+};

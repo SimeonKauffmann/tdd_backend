@@ -12,23 +12,38 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+  const db = await getDB();
   const data = req.body;
   if (!isValidProduct(data)) {
-    throw new Error('Invalid product object');
+    res.status(400).send(`Invalid input: ${data}`);
+  } else {
+    const product = await db.products.createOneProduct(data);
+    res.status(201).send(product.find((item) => item.id === data.id));
   }
-  if (data.price < 0) {
-    throw new Error("Price can't be below zero");
-  }
-  const db = await getDB();
-  await db.products.createOneProduct(req.body);
-  res.status(201).send('Success');
 });
 
 router.put('/', async (req, res) => {
+  const data = req.body;
+  if (!isValidProduct(data)) {
+    res.status(400).send(`Invalid input: ${data}`);
+  } else {
+    const db = await getDB();
+    const product = await db.products.modifyProduct(data);
+    res.status(200).send(product.find((item) => item.id === data.id));
+  }
+});
+
+router.delete('/', async (req, res) => {
   const db = await getDB();
-  const updatedProduct = req.body;
-  await db.products.modifyProduct({ updatedProduct });
-  res.send(updatedProduct);
+  const inputId = req.params;
+  const findProduct = await db.products.getOne(inputId);
+
+  if (!findProduct) {
+    res.status(400).send('Unknown Product');
+  } else {
+    const products = await db.products.deleteProduct(inputId);
+    res.send(products);
+  }
 });
 
 module.exports = router;

@@ -7,6 +7,8 @@ function isValidProduct(product) {
     return false;
   } else if (typeof product.id !== 'string') {
     return false;
+  } else if (product.price < 0) {
+    return false;
   }
   return true;
 }

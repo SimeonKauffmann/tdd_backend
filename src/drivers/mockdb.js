@@ -4,7 +4,7 @@ const usersData = [
   { userLogin: 'Patrik261', name: 'Patrik' },
   { userLogin: 'password', name: 'Samuel' },
   { userLogin: 'tyst', name: 'Simeon' },
-  { userLogin: "secret", name: "Lulin" },
+  { userLogin: 'secret', name: 'Lulin' }
 ];
 
 const productsData = [
@@ -96,12 +96,13 @@ class MockCRUD {
 
   async modifyProduct(input) {
     try {
-      this.data.forEach((product) => {
-        if (product.id === input.id) {
-          product === input;
-          return this.data;
+      this.data.forEach((item) => {
+        if (item.id === input.id) {
+          item.name = input.name;
+          item.price = input.price;
         }
       });
+      return this.data;
     } catch (err) {
       throw err;
     }

@@ -32,18 +32,38 @@ describe('Product methods', () => {
   });
 });
 
-// describe('POST bad requests /products', () => {
-//   it('posts empty object/products ', (done) => {
-//     request(app)
-//       .post('/products')
-//       .send({ iam: 'error' })
-//       .expect(401)
-//       .end((err, res) => {
-//         if (err) return done(err);
-//         return done();
-//       });
-//   });
-// });
+it('Sends id as number instead of string', (done) => {
+  request(app)
+    .post('/carts/something')
+    .send([{ id: 54393, name: 'Katt', price: 1 }])
+    .expect(400)
+    .end((err, res) => {
+      if (err) return done(err);
+      return done();
+    });
+});
+
+it('Sends negative price', (done) => {
+  request(app)
+    .post('/carts/something')
+    .send([{ id: 54393, name: 'Katt', price: -10 }])
+    .expect(400)
+    .end((err, res) => {
+      if (err) return done(err);
+      return done();
+    });
+});
+
+it('posts invalid key ', (done) => {
+  request(app)
+    .post('/products')
+    .send({ iam: 'error' })
+    .expect(400)
+    .end((err, res) => {
+      if (err) return done(err);
+      return done();
+    });
+});
 
 // // PUT
 describe('Update one product', () => {
@@ -51,6 +71,7 @@ describe('Update one product', () => {
     request(app)
       .put('/products')
       .send({ id: '999', name: 'Stol', price: 13 })
+      .expect(200)
       .expect((res) => res.body.id === '999')
       .end((err, res) => {
         if (err) return done(err);

@@ -15,6 +15,17 @@ describe('Product methods', () => {
           return done();
         });
     });
+
+    it('gets all products', async () => {
+      try {
+        const response = await request(app).get('/products');
+        expect(response.body.length).toBeGreaterThan(0);
+        expect(response.body[0]).toBeInstanceOf(Object);
+      } catch (err) {
+        console.error(err);
+        throw new Error();
+      }
+    });
   });
 
   describe('POST', () => {

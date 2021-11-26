@@ -3,7 +3,8 @@ const { v4: uuid } = require('uuid');
 const usersData = [
   { userLogin: 'Patrik261', name: 'Patrik' },
   { userLogin: 'password', name: 'Samuel' },
-  { userLogin: 'tyst', name: 'Simeon' }
+  { userLogin: 'tyst', name: 'Simeon' },
+  { userLogin: "secret", name: "Lulin" },
 ];
 
 const productsData = [
